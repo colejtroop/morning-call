@@ -1,0 +1,11 @@
+.env
+.DS_Store
+node_modules/
+npm-debug.log*
+*.local
+.idea/
+.vscode/
+coverage/
+dist/
+tmp/
+*.log

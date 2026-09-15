@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#090b0d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="description" content="A local-first, voice-led morning bio-optimization check-in." />
+    <title>Morning Call</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="home-view" id="homeView">
+        <header class="home-header"><p class="eyebrow" id="todayLabel">TODAY</p><h1>Morning.</h1><p class="subtle">One useful check-in. No spreadsheet cosplay.</p></header>
+        <section class="weight-card" aria-label="Latest weight"><span>BODYWEIGHT</span><strong id="latestWeight">—</strong><small id="weightTrend">No readings yet</small></section>
+        <section class="assistant-card" aria-label="Assistant status"><div class="assistant-orb" aria-hidden="true"></div><div><span>ASSISTANT</span><p id="assistantPreview">Ready when you are.</p></div></section>
+        <button class="call-button" id="callButton" type="button"><span class="camera-icon" aria-hidden="true">●</span> CALL</button>
+        <section class="history-section"><div class="section-title"><h2>History</h2><button id="clearHistory" class="text-button" type="button">Clear</button></div><ol id="historyList" class="history-list"></ol></section>
+      </section>
+      <section class="call-view hidden" id="callView" aria-live="polite">
+        <video id="cameraPreview" autoplay muted playsinline></video><div class="camera-shade"></div><div class="face-guide" aria-hidden="true"></div>
+        <header class="call-header"><div class="live-badge"><i></i><span id="connectionLabel">Connecting</span></div><time id="callTimer">00:00</time></header>
+        <div class="call-copy"><div class="voice-orb" id="voiceOrb" aria-hidden="true"></div><p id="callStatus">Starting camera…</p><p class="transcript" id="transcript"></p></div>
+        <form id="weightFallback" class="weight-fallback hidden"><label for="weightInput">Weight</label><div><input id="weightInput" inputmode="decimal" type="number" min="80" max="500" step="0.1" placeholder="174.2" /><span>lb</span><button type="submit">Save</button></div></form>
+        <footer class="call-controls"><button class="round-control" id="muteButton" type="button" aria-label="Mute microphone">MIC</button><button class="end-button" id="endButton" type="button" aria-label="End call">END</button><button class="round-control" id="flipButton" type="button" aria-label="Flip camera">FLIP</button></footer>
+        <audio id="remoteAudio" autoplay></audio>
+      </section>
+    </main>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
