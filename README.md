@@ -56,8 +56,8 @@ See [Architecture](docs/architecture.md) and [Privacy](docs/privacy.md) for the 
 ### Setup
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/morning-call.git
-cd morning-call
+git clone https://github.com/colejtroop/health-agent.git
+cd health-agent
 ```
 
 Set the API key in your shell. Never place it in client code.
