@@ -5,7 +5,11 @@ npm-debug.log*
 *.local
 .idea/
 .vscode/
+.codex/
+.cache/
 coverage/
 dist/
+build/
 tmp/
+*.tmp
 *.log

@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "node --watch src/server/index.mjs",
     "start": "node src/server/index.mjs",
-    "check": "node --check src/server/index.mjs && node --check src/client/app.js",
+    "check": "node --check src/server/index.mjs && node --check src/client/app.js && node --check src/client/morning-call.js && node --check src/client/demo-voice.js && node --check src/client/observer.js && node --check src/client/face-landmarker.js && node --check src/client/face-overlay.js",
     "test": "node --test",
     "validate": "npm run check && npm test"
   },

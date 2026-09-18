@@ -2,7 +2,7 @@
 
 A local-first, voice-led morning check-in for personal bio-optimization.
 
-Morning Call combines a FaceTime-style camera interface with realtime AI conversation, structured bodyweight capture, and local history. It is the first working slice of a larger personal health-observation system built around one principle:
+Morning Call combines a FaceTime-style camera interface with realtime AI conversation, structured bodyweight capture, local face-landmark observation, and confirmed local history. It is the first working slice of a larger personal health-observation system built around one principle:
 
 > Observe → remember → quantify → compare → infer → communicate → adapt
 
@@ -16,9 +16,15 @@ The user starts a call, grants camera and microphone access, and speaks naturall
 ## Features
 
 - Phone-first live camera call interface
+- API-free demo voice mode
 - Low-latency AI voice over WebRTC
 - Structured bodyweight capture from conversation
-- Manual entry when voice is unavailable
+- Guided front/left/right capture state machine
+- Local 478-point face landmarks with personalized neutral-pose calibration
+- Live yaw, pitch, roll, face bounds, and augmented orientation axes
+- Multi-frame lighting, motion, blink, distance, and stability checks
+- Hold-to-auto-capture with manual fallback
+- Post-call review and correction before data is persisted
 - Local browser-based history
 - Camera flip, microphone mute, timer, and offline states
 - Server-side OpenAI API-key isolation
@@ -41,7 +47,7 @@ The user starts a call, grants camera and microphone access, and speaks naturall
                               OpenAI Realtime API
 ```
 
-The AI voice does not inspect camera frames or approve captures. A later deterministic Observer will own landmark detection, pose validation, and measurements.
+The AI voice does not inspect camera frames or approve captures. A separate deterministic Observer owns landmark detection, pose validation, quality checks, and measurement metadata.
 
 See [Architecture](docs/architecture.md) and [Privacy](docs/privacy.md) for the design boundaries.
 
@@ -114,10 +120,14 @@ Implemented:
 
 - Call shell and camera preview
 - Realtime WebRTC negotiation boundary
+- API-free demo mode
 - Voice-triggered weight tool
-- Local history and manual fallback
+- Guided capture flow and personalized neutral-pose calibration
+- Local face landmarks, live pose telemetry, and capture-quality checks
+- Staged post-call review before local persistence
+- Local history and manual fallbacks
 - Offline/error behavior
-- Automated HTTP and weight-domain tests
+- Automated HTTP, state, storage, frame-quality, and face-geometry tests
 
 Still requiring device validation:
 
@@ -125,6 +135,8 @@ Still requiring device validation:
 - iPhone Safari camera/microphone behavior
 - Private HTTPS phone access
 - Audio interruption and spoken-weight accuracy
+- Personal calibration of yaw, pitch, roll, and distance thresholds
+- Body landmarks for the step-back position
 
 See the [Roadmap](docs/roadmap.md) for the next milestones.
 

@@ -20,13 +20,27 @@
         <section class="history-section"><div class="section-title"><h2>History</h2><button id="clearHistory" class="text-button" type="button">Clear</button></div><ol id="historyList" class="history-list"></ol></section>
       </section>
       <section class="call-view hidden" id="callView" aria-live="polite">
-        <video id="cameraPreview" autoplay muted playsinline></video><div class="camera-shade"></div><div class="face-guide" aria-hidden="true"></div>
+        <video id="cameraPreview" autoplay muted playsinline></video><canvas id="faceOverlay" class="face-overlay" aria-hidden="true"></canvas><div class="camera-shade"></div>
         <header class="call-header"><div class="live-badge"><i></i><span id="connectionLabel">Connecting</span></div><time id="callTimer">00:00</time></header>
-        <div class="call-copy"><div class="voice-orb" id="voiceOrb" aria-hidden="true"></div><p id="callStatus">Starting camera…</p><p class="transcript" id="transcript"></p></div>
+        <div class="pose-readout hidden" id="poseReadout"><span>YAW <b id="yawValue">—</b></span><span>PITCH <b id="pitchValue">—</b></span><span>ROLL <b id="rollValue">—</b></span></div>
+        <div class="call-copy"><p id="callStatus">Starting camera…</p><p class="transcript" id="transcript"></p><button class="capture-button hidden" id="captureButton" type="button">CAPTURE</button></div>
         <form id="weightFallback" class="weight-fallback hidden"><label for="weightInput">Weight</label><div><input id="weightInput" inputmode="decimal" type="number" min="80" max="500" step="0.1" placeholder="174.2" /><span>lb</span><button type="submit">Save</button></div></form>
         <footer class="call-controls"><button class="round-control" id="muteButton" type="button" aria-label="Mute microphone">MIC</button><button class="end-button" id="endButton" type="button" aria-label="End call">END</button><button class="round-control" id="flipButton" type="button" aria-label="Flip camera">FLIP</button></footer>
         <audio id="remoteAudio" autoplay></audio>
       </section>
+      <dialog id="reviewDialog" class="review-dialog">
+        <form id="reviewForm" method="dialog">
+          <h2>Everything look right?</h2>
+          <p class="subtle">Nothing is added to history until you confirm.</p>
+          <label for="reviewWeight">Weight (lb)</label>
+          <input id="reviewWeight" type="number" min="80" max="500" step="0.1" required />
+          <section><h3>Captures</h3><ul id="reviewCaptures"></ul></section>
+          <section><h3>Reported context</h3><div id="reviewObservations"></div></section>
+          <section><h3>Inferences</h3><ul id="reviewInferences"></ul></section>
+          <p id="reviewError" class="review-error" role="alert"></p>
+          <div class="review-actions"><button id="discardReview" type="button">Discard</button><button type="submit">Confirm &amp; save</button></div>
+        </form>
+      </dialog>
     </main>
     <script type="module" src="/app.js"></script>
   </body>

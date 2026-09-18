@@ -10,6 +10,13 @@
 | OpenAI API key | Server process environment | Process lifetime |
 | Transcript text | Visible browser state | Current page session only |
 
+## Observer boundary
+
+- Camera frames are processed in browser memory and are not uploaded or persisted.
+- Captures store derived quality values, pose values, and normalized landmarks only after user confirmation.
+- The MediaPipe JavaScript/WASM runtime and face-landmark model are currently downloaded from pinned public asset URLs when the Observer first starts. Camera data is not sent to those hosts.
+- A future packaging pass will bundle these runtime assets locally for fully offline model initialization.
+
 ## Current guarantees
 
 - Camera tracks are not attached to the OpenAI peer connection.
