@@ -19,3 +19,15 @@ export async function sampleCaptureQuality(video, { frameCount = 12, intervalMs 
   }
   return aggregateFrameQuality(frames);
 }
+
+export function captureFramePreview(video) {
+  const canvas = document.createElement("canvas");
+  const width = 320;
+  canvas.width = width;
+  canvas.height = Math.round(width * video.videoHeight / video.videoWidth);
+  const context = canvas.getContext("2d");
+  context.translate(width, 0);
+  context.scale(-1, 1);
+  context.drawImage(video, 0, 0, canvas.width, canvas.height);
+  return new Promise((resolve, reject) => canvas.toBlob((blob) => blob ? resolve(URL.createObjectURL(blob)) : reject(new Error("Could not create capture preview.")), "image/jpeg", 0.72));
+}

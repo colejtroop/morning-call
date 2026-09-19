@@ -10,12 +10,14 @@ test("morning flow requires weight and visits every capture position", () => {
   session = advanceMorningCall(session);
   assert.equal(currentStep(session).id, "face_calibrate");
   session = advanceMorningCall(session);
-  for (const position of ["face_front", "face_left", "face_right", "body_front"]) {
+  assert.equal(currentStep(session).id, "hairline_calibrate");
+  session = advanceMorningCall(session);
+  for (const position of ["face_front", "face_left", "face_right", "profile_left", "profile_right", "body_front"]) {
     assert.equal(currentStep(session).id, position);
     session = advanceMorningCall(session, { quality: 1, observer: "demo" });
   }
   assert.equal(currentStep(session).id, "complete");
-  assert.equal(session.captures.length, 4);
+  assert.equal(session.captures.length, 6);
   assert.ok(session.completedAt);
 });
 

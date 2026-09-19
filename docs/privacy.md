@@ -13,6 +13,7 @@
 ## Observer boundary
 
 - Camera frames are processed in browser memory and are not uploaded or persisted.
+- Small capture previews use temporary in-memory object URLs only for post-call review. They are revoked after confirmation, discard, or an incomplete call.
 - Captures store derived quality values, pose values, and normalized landmarks only after user confirmation.
 - The MediaPipe JavaScript/WASM runtime and face-landmark model are currently downloaded from pinned public asset URLs when the Observer first starts. Camera data is not sent to those hosts.
 - A future packaging pass will bundle these runtime assets locally for fully offline model initialization.

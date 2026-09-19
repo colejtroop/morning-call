@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { aggregateFacePoses, applyPoseCalibration, measureFacePose, validateCalibrationPose, validateFacePose } from "../src/client/face-geometry.js";
+import { aggregateFacePoses, aggregateLandmarkFrames, applyPoseCalibration, calculateRegionStability, measureFacePose, smoothLandmarks, validateCalibrationPose, validateFacePose } from "../src/client/face-geometry.js";
 
 function face({ noseX = 0.5, eyeTilt = 0 } = {}) {
   const points = Array.from({ length: 478 }, () => ({ x: 0.5, y: 0.5, z: 0 }));
@@ -39,4 +39,24 @@ test("calibration makes the captured upright pose the personal zero", () => {
   assert.equal(adjusted.yaw, 0);
   assert.equal(adjusted.pitch, 0);
   assert.equal(adjusted.roll, 0);
+});
+
+test("aggregates landmarks across frames and reports uncertainty", () => {
+  const result = aggregateLandmarkFrames([
+    [{ x: 0.4, y: 0.5, z: 0 }], [{ x: 0.41, y: 0.49, z: 0.01 }], [{ x: 0.9, y: 0.9, z: 0.3 }]
+  ]);
+  assert.equal(result.landmarks[0].x, 0.41);
+  assert.equal(result.landmarks[0].y, 0.5);
+  assert.equal(result.uncertainty.successfulFrames, 3);
+  assert.ok(result.uncertainty.medianLandmarkDeviation < 0.02);
+});
+
+test("smooths live landmarks and reports anatomical-region stability", () => {
+  const previous = face();
+  const current = face({ noseX: 0.52 });
+  const smoothed = smoothLandmarks(previous, current, 0.5);
+  assert.equal(smoothed[1].x, 0.51);
+  const stability = calculateRegionStability(previous, current);
+  assert.ok(Number.isFinite(stability.eyes));
+  assert.ok(Number.isFinite(stability.jaw));
 });

@@ -1,10 +1,13 @@
 export const MORNING_STEPS = Object.freeze([
   { id: "weight", prompt: "Morning. Weight?", requiresWeight: true },
   { id: "face_calibrate", prompt: "Look straight ahead. Put your eyes in the guides." },
+  { id: "hairline_calibrate", prompt: "Tap the center of your natural hairline." },
   { id: "face_front", prompt: "Camera up. Face forward." },
   { id: "face_left", prompt: "Turn slightly left." },
   { id: "face_right", prompt: "Other side." },
-  { id: "body_front", prompt: "Step back. Face forward and relax." },
+  { id: "profile_left", prompt: "Turn to your left profile." },
+  { id: "profile_right", prompt: "Turn to your right profile." },
+  { id: "body_front", prompt: "Step back for a full-body posture capture. Face forward and relax." },
   { id: "complete", prompt: "Done." }
 ]);
 
